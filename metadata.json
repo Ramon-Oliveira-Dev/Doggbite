@@ -1,0 +1,6 @@
+{
+  "name": "Doggbite | Metal Hardcore",
+  "description": "Official app for the Metal Hardcore band Doggbite. Access latest releases, tour dates, and exclusive merchandise.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
