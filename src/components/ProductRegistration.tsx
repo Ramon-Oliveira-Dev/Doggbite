@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { DEFAULT_PRODUCTS } from '../lib/initialData';
 import { 
   Plus, 
   Upload, 
@@ -147,7 +148,6 @@ export const ProductRegistration: React.FC<ProductRegistrationProps> = ({ onSucc
         }
 
         if (error) {
-          console.error('Erro Supabase Save:', error);
           throw error;
         }
 
@@ -160,10 +160,7 @@ export const ProductRegistration: React.FC<ProductRegistrationProps> = ({ onSucc
           try { localProducts = JSON.parse(cachedProductsStr); } catch (_) {}
         }
         if (localProducts.length === 0) {
-          localProducts = [
-            { id: '1', name: 'Camiseta Oficial Drop 1', price: 89.90, description: 'Camiseta 100% algodão', category: 'clothing' },
-            { id: '2', name: 'Boné DoggBite', price: 59.90, description: 'Boné aba reta', category: 'accessories' }
-          ];
+          localProducts = DEFAULT_PRODUCTS;
         }
 
         if (initialData?.id) {
@@ -191,7 +188,7 @@ export const ProductRegistration: React.FC<ProductRegistrationProps> = ({ onSucc
       if (onSuccess) onSuccess();
       
     } catch (error: any) {
-      console.error('Erro ao salvar produto:', error.message);
+      console.warn('Aviso ao salvar produto:', error?.message || error);
       setStatus({ type: 'error', message: `Erro: ${error.message || 'Falha no processo'}` });
     } finally {
       setIsUploading(false);

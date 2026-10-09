@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { DEFAULT_MEMBERS } from '../lib/initialData';
 import { 
   Plus, 
   Upload, 
@@ -146,10 +147,7 @@ export const MemberRegistration: React.FC<MemberRegistrationProps> = ({ onSucces
           try { localMembers = JSON.parse(cachedMembersStr); } catch (_) {}
         }
         if (localMembers.length === 0) {
-          localMembers = [
-            { id: '1', name: 'MC Dogg', role: 'vocal', instagram: '@mcdogg', description: 'Vocalista principal' },
-            { id: '2', name: 'DJ Bite', role: 'dj', instagram: '@djbite', description: 'Beats e scratch' }
-          ];
+          localMembers = DEFAULT_MEMBERS;
         }
 
         if (initialData?.id) {
@@ -176,7 +174,7 @@ export const MemberRegistration: React.FC<MemberRegistrationProps> = ({ onSucces
       if (onSuccess) onSuccess();
       
     } catch (error: any) {
-      console.error('Erro ao salvar integrante:', error.message);
+      console.warn('Aviso ao salvar integrante:', error?.message || error);
       setStatus({ type: 'error', message: `Erro: ${error.message || 'Falha no processo'}` });
     } finally {
       setIsUploading(false);
